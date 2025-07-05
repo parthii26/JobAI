@@ -1,0 +1,141 @@
+Great! Since you're using Firestore and have implemented Firebase Authentication, resume parsing, skill extraction, and plan to add a Job Role Matcher + Skill Gap Analysis feature, here’s a complete step-by-step prompt-style breakdown of your project:
+
+🧠 Project Title:
+AI-Based Job Interview Preparation Assistant with Firestore Integration
+
+✅ Core Features:
+User Authentication (via Firebase)
+
+Resume Upload and Parsing (PDF/DOCX)
+
+AI-based Skill Extraction
+
+Resume Scoring & Feedback
+
+Interview Question Generation
+
+Resume Management Dashboard
+
+🔥 Firestore as the primary database
+
+✅ Job Role Matcher + Skill Gap Analyzer (New Feature)
+
+🛠️ Step-by-Step Prompt-Style Implementation Plan
+1. 🔐 Firebase Authentication
+Prompt:
+
+Implement Firebase Authentication using Email/Password login. Once authenticated, store the user UID in Firestore under a users collection along with name and email.
+
+2. 📤 Resume Upload (Frontend)
+Prompt:
+
+Create a React component that allows users to upload .pdf, .doc, or .docx resumes. Use FormData to send the file to a Node.js/Flask backend. Display a progress bar and success/failure toast messages.
+
+3. 📄 Resume Processing (Backend)
+Prompt:
+
+On file upload:
+
+Extract text from the resume using pdfplumber or python-docx.
+
+Extract relevant skills using a pre-trained BERT model.
+
+Calculate resume score based on skill relevance, formatting, keyword match, etc.
+
+Store resume data in Firestore under resumes/{userId}/documents.
+
+4. 🧠 Skill Extraction
+Prompt:
+
+Extract both technical and soft skills using keyword mapping and NER models (BERT/Spacy). Store extracted skills under the resume document in Firestore.
+
+5. 📊 Resume Scoring
+Prompt:
+
+Implement a scoring engine that gives:
+
+Overall score
+
+Skill match %
+
+Format quality
+
+Keyword density
+Save the scores to Firestore in the resume document.
+
+6. ❓ Interview Question Generator
+Prompt:
+
+Based on extracted skills, generate personalized interview questions using GPT-3.5 or GPT-Neo. Save them to interview_questions/{userId}/questions in Firestore.
+
+7. 📈 Dashboard UI
+Prompt:
+
+Build a dashboard that shows:
+
+Number of resumes uploaded
+
+Skills identified
+
+Average match score
+
+Questions generated
+Fetch this data from Firestore using React Query.
+
+8. 🧩 Resume Management Page
+Prompt:
+
+Create a page that lists all resumes uploaded by the user. Allow viewing:
+
+Parsed text
+
+Skill list
+
+Score breakdown
+
+Download option
+
+9. 🔎 Job Role Matcher + Skill Gap Analyzer (New Feature)
+Prompt:
+
+Create a collection job_roles in Firestore with job titles and required skills.
+
+For a user's uploaded resume:
+
+Match the resume's extracted skills against each job role.
+
+Compute a similarity percentage.
+
+Identify missing skills as “Skill Gaps”.
+Save the output in recommendations/{userId}/matches.
+
+10. 💡 Skill Gap Learning Suggestions (Bonus)
+Prompt:
+
+Use the skill gaps to recommend:
+
+YouTube tutorials
+
+Free courses (Coursera/edX API or static links)
+
+Practice questions
+Store recommendations per user.
+
+🗂️ Firestore Data Structure Suggestion:
+plaintext
+Copy
+Edit
+users/{uid}
+  └─ email, name
+
+resumes/{uid}/documents/{resumeId}
+  └─ originalText, extractedSkills, scores, createdAt
+
+interview_questions/{uid}/questions/{questionId}
+  └─ skill, difficulty, question, category
+
+job_roles/{roleId}
+  └─ title, requiredSkills
+
+recommendations/{uid}/matches/{roleMatchId}
+  └─ jobTitle, matchScore, missingSkills
